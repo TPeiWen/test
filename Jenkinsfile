@@ -6,7 +6,7 @@ pipeline {
         FLASK_APP = 'workspace/flask/app.py'  // Correct path to the Flask app
         PATH = "$VENV_PATH/bin:$PATH"
         SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner'
-        SONARQUBE_TOKEN = 'squ_49cf1a95dfa351b301269a8f0d6a57dc4f59c179'  // Set your new SonarQube token here
+        SONARQUBE_TOKEN = 'squ_c697e8812497d2bd59bc0201abc3f17ed5aa0488'  // Set your new SonarQube token here
         DEPENDENCY_CHECK_HOME = '/var/jenkins_home/tools/org.jenkinsci.plugins.DependencyCheck.tools.DependencyCheckInstallation/OWASP_Dependency-Check/dependency-check'
     }
     
