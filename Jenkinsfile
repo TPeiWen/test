@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'custom-jenkins'
-            args '-u root:root'
-        }
-    }
+    agent any
 
     environment {
         VENV_PATH = 'venv'
@@ -41,7 +36,7 @@ pipeline {
         stage('Activate Virtual Environment and Install Dependencies') {
             steps {
                 dir('workspace/flask') {
-                    sh 'source $VENV_PATH/bin/activate && pip install -r requirements.txt'
+                    sh '. $VENV_PATH/bin/activate && pip install -r requirements.txt'
                 }
             }
         }
@@ -65,7 +60,7 @@ pipeline {
             steps {
                 script {
                     // Start the Flask app in the background
-                    sh 'source $VENV_PATH/bin/activate && FLASK_APP=$FLASK_APP flask run &'
+                    sh '. $VENV_PATH/bin/activate && FLASK_APP=$FLASK_APP flask run &'
                     // Give the server a moment to start
                     sh 'sleep 5'
                     // Debugging: Check if the Flask app is running
@@ -90,7 +85,7 @@ pipeline {
         stage('Integration Testing') {
             steps {
                 dir('workspace/flask') {
-                    sh 'source $VENV_PATH/bin/activate && pytest --junitxml=integration-test-results.xml'
+                    sh '. $VENV_PATH/bin/activate && pytest --junitxml=integration-test-results.xml'
                 }
             }
         }
