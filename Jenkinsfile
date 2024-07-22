@@ -20,7 +20,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 dir('workspace') {
-                    git branch: 'main', url: 'https://github.com/TPeiWen/test.git', credentialsId: 'TPeiWen'
+                    git branch: 'main', url: 'https://github.com/TPeiWen/test.git', credentialsId: 'a1685372-9a24-4431-8e36-81b4e39765e9'
                 }
             }
         }
