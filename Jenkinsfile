@@ -28,7 +28,7 @@ pipeline {
         stage('Setup Virtual Environment') {
             steps {
                 dir('workspace/flask') {
-                    sh 'python -m venv $VENV_PATH'
+                    bat 'python -m venv $VENV_PATH'
                 }
             }
         }
