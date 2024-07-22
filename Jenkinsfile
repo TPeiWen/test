@@ -16,11 +16,26 @@ pipeline {
                 sh 'docker --version'
             }
         }
+
+        stage('Install Python 3') {
+            steps {
+                sh '''
+                    if ! command -v python3 &> /dev/null
+                    then
+                        echo "Python3 could not be found, installing..."
+                        sudo apt-get update
+                        sudo apt-get install -y python3 python3-venv
+                    else
+                        echo "Python3 is already installed"
+                    fi
+                '''
+            }
+        }
         
         stage('Clone Repository') {
             steps {
                 dir('workspace') {
-                    git branch: 'main', url: 'https://github.com/motorfireman/Test.git'
+                    git branch: 'main', url: 'https://github.com/TPeiWen/test.git'
                 }
             }
         }
@@ -36,7 +51,7 @@ pipeline {
         stage('Activate Virtual Environment and Install Dependencies') {
             steps {
                 dir('workspace/flask') {
-                    sh '. $VENV_PATH/bin/activate && pip install -r requirements.txt'
+                    sh 'source $VENV_PATH/bin/activate && pip install -r requirements.txt'
                 }
             }
         }
@@ -60,7 +75,7 @@ pipeline {
             steps {
                 script {
                     // Start the Flask app in the background
-                    sh '. $VENV_PATH/bin/activate && FLASK_APP=$FLASK_APP flask run &'
+                    sh 'source $VENV_PATH/bin/activate && FLASK_APP=$FLASK_APP flask run &'
                     // Give the server a moment to start
                     sh 'sleep 5'
                     // Debugging: Check if the Flask app is running
@@ -85,7 +100,7 @@ pipeline {
         stage('Integration Testing') {
             steps {
                 dir('workspace/flask') {
-                    sh '. $VENV_PATH/bin/activate && pytest --junitxml=integration-test-results.xml'
+                    sh 'source $VENV_PATH/bin/activate && pytest --junitxml=integration-test-results.xml'
                 }
             }
         }
