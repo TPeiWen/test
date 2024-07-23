@@ -11,7 +11,7 @@ pipeline {
     	PYTHON_PATH = 'C:\\Users\\wenwe\\AppData\\Local\\Microsoft\\WindowsApps\\python3.exe'
     }
 
-}
+
     
     stages {
         stage('Check Docker') {
