@@ -30,7 +30,7 @@ PYTHON_PATH = '/usr/bin/python3'
         
          stage('Setup Virtual Environment') {
             steps {
-                dir('workspace/flask') {
+                dir('test/flask') {
                     sh '${PYTHON_PATH} -m venv $VENV_PATH'
                 }
             }
