@@ -18,7 +18,11 @@ pipeline {
                 sh 'docker --version'
             }
         }
-        
+        stage('Check Python') {
+            steps {
+                sh 'which python3 || echo "Python3 not found"'
+            }
+        }
         stage('Clone Repository') {
             steps {
                 dir('workspace') {
