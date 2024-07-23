@@ -4,7 +4,7 @@ pipeline {
     environment {
         VENV_PATH = 'venv'
         FLASK_APP = 'workspace/flask/app.py'  // Correct path to the Flask app
-        PATH = "$VENV_PATH/bin:$PATH"
+        PATH = "$VENV_PATH/bin:$PATH"  // Adjust the PATH for Unix-like systems
         SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner'
         SONARQUBE_TOKEN = 'squ_6b146edc8eca9957203e58ba7d82dfc1ffa52924'
         DEPENDENCY_CHECK_HOME = '/var/jenkins_home/tools/org.jenkinsci.plugins.DependencyCheck.tools.DependencyCheckInstallation/OWASP_Dependency-Check/dependency-check'
@@ -20,14 +20,15 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 dir('workspace') {
-                    git branch: 'main', url: 'https://github.com/TPeiWen/test.git'}
+                    git branch: 'main', url: 'https://github.com/TPeiWen/test.git'
+                }
             }
         }
         
         stage('Setup Virtual Environment') {
             steps {
                 dir('workspace/flask') {
-                    sh 'C:\\\Users\\\wenwe\\\AppData\\\Local\\\Microsoft\\\WindowsApps\\\python3.exe -m venv $VENV_PATH'
+                    sh 'python3 -m venv $VENV_PATH'
                 }
             }
         }
