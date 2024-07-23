@@ -22,8 +22,10 @@ PYTHON_PATH = '/usr/bin/python3'
         stage('Check Python') {
             steps {
                 sh 'which python3 || echo "Python3 not found"'
+                sh '${PYTHON_PATH} --version'
             }
         }
+
         stage('Clone Repository') {
             steps {
                 dir('workspace') {
